@@ -1,0 +1,26 @@
+body {
+  background-color: #f8efef;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  font-size: 48px;
+}
+
+.tasks-counter {
+  font-size: 24px;
+  padding: 10px 0;
+}
+
+.delete {
+  padding: 4px 6px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: #dc3545;
+}
