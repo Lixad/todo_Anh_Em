@@ -11,35 +11,33 @@ const getTasks = () => {
   fetch('https://todo-store.herokuapp.com/')
     .then(res => res.json())
     .then(data => {
-      tasks = [...data];
+      tasks = [...data.tasks];
       updateTasks();
       list.innerHTML = '';
-      data.forEach(el => {
+      data.tasks.forEach(el => {
         const li = document.createElement('li');
-        li.innerHTML = `<label>${el.name} <input type="checkbox" id="${el.id}" ${el.checked ? 'checked' : ''}></label><button type="button" class="delete" id="del${el.id}">delete</button>`;
+        li.innerHTML = `<label>${el.value} <input type="checkbox" id="${el._id}" ${el.checked ? 'checked' : ''}></label><button type="button" class="delete" id="del${el._id}">delete</button>`;
         li.style.color = el.checked ? 'green' : 'black';
         list.prepend(li);
-        const checkbox = document.getElementById(el.id);
+        const checkbox = document.getElementById(el._id);
         checkbox.addEventListener('click', () => {
-          if(checkbox.checked) {
-            tasks.find(e => e.id === parseInt(checkbox.id)).checked = true;
-            fetch(`https://todo-store.herokuapp.com/${parseInt(checkbox.id)}`, { method: 'PUT' })
-              .then(() => {
-                getTasks();
-                updateTasks();
-              })
-          } else {
-            tasks.find(e => e.id === parseInt(checkbox.id)).checked = false;
-            fetch(`https://todo-store.herokuapp.com/${parseInt(checkbox.id)}`, { method: 'PUT' })
-              .then(() => {
-                getTasks();
-                updateTasks();
-              })
+          fetch(`https://todo-store.herokuapp.com/${checkbox.id}`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ checked: checkbox.checked })
+            })
+            .then(() => {
+              getTasks();
+              updateTasks();
+            })
           }
-        })
-        const delBtn = document.getElementById(`del${el.id}`);
+        )
+        const delBtn = document.getElementById(`del${el._id}`);
         delBtn.addEventListener('click', () => {
-          fetch(`https://todo-store.herokuapp.com/${parseInt(checkbox.id)}`, { method: 'DELETE' })
+          fetch(`https://todo-store.herokuapp.com/${checkbox.id}`, { method: 'DELETE' })
             .then(() => {
               getTasks();
               updateTasks();
