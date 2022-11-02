@@ -6,17 +6,18 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>Dung and Filip todo list :></h1>
-    <div class="tasks-counter">
-      Tasks completed:
-      <span id="counter"></span>
+    <h1>DUNG & FILIP TODO LIST</h1>
+    <div class="main-container">
+      <div class="tasks-counter">
+        tasks completed:
+        <span id="counter"></span>
+      </div>
+      <form id="form">
+        <input id="input" name="input" class="input-task">
+        <button type="submit" class="addBtn">Add</button>
+      </form>
+      <ul id="list"></ul>
     </div>
-    <form id="form">
-      <label for="input">Task name: </label>
-      <input id="input" name="input">
-      <button type="submit">Add item</button>
-    </form>
-    <ul id="list"></ul>
     <script src="script.js"></script>
   </body>
 </html>
